@@ -1,0 +1,105 @@
+---
+import Logo from "@/components/Logo.astro";
+import menu from "@/config/menu.json";
+import { IoSearch } from "react-icons/io5";
+import { FaGithub } from "react-icons/fa";
+
+export interface ChildNavigationLink {
+  name: string;
+  url: string;
+}
+
+export interface NavigationLink {
+  name: string;
+  url: string;
+  hasChildren?: boolean;
+  children?: ChildNavigationLink[];
+}
+
+const { main }: { main: NavigationLink[] } = menu;
+---
+
+<header class="header pt-6">
+  <nav class="navbar container">
+
+    <!-- Logo -->
+    <div class="order-0">
+      <Logo />
+    </div>
+
+    <!-- Mobile nav toggler -->
+    <input id="nav-toggle" type="checkbox" class="hidden" />
+
+    <label
+      for="nav-toggle"
+      class="order-2 flex cursor-pointer items-center text-black md:hidden md:order-1"
+    >
+      <svg class="h-6 fill-current" viewBox="0 0 20 20" aria-hidden="true">
+        <title>Toggle Menu</title>
+        <path d="M0 3h20v2H0V3zM0 9h20v2H0V9zM0 15h20v2H0v-2z" />
+      </svg>
+    </label>
+
+    <!-- Main navigation -->
+    <ul
+      id="nav-menu"
+      class="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto"
+    >
+      {main.map((item) =>
+        item.hasChildren ? (
+          <li class="nav-item nav-dropdown group relative cursor-pointer">
+            <span class="nav-link inline-flex items-center">
+              {item.name}
+              <svg class="h-5 w-5 ml-1 fill-current" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </span>
+
+            <ul class="nav-dropdown-list hidden group-hover:block md:absolute md:opacity-0 md:group-hover:opacity-100 md:group-hover:visible">
+              {item.children?.map((child) => (
+                <li class="nav-dropdown-item">
+                  <a href={child.url} class="nav-dropdown-link">
+                    {child.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : (
+          <li class="nav-item">
+            <a href={item.url} class="nav-link block">
+              {item.name}
+            </a>
+          </li>
+        )
+      )}
+    </ul>
+
+    <!-- Right-side actions -->
+    <div class="order-1 ml-auto flex items-center space-x-4 md:order-2 md:ml-0">
+
+      <!-- Search -->
+      <a
+        href="/search"
+        class="inline-block p-2 text-xl text-dark transition hover:text-primary"
+        title="Search"
+        aria-label="Search"
+      >
+        <IoSearch />
+      </a>
+
+      <!-- GitHub (SEO-friendly, no rel attribute) -->
+      <a
+        href="https://github.com/fabformhub/bookworm.git"
+        target="_blank"
+        class="inline-block p-2 text-xl text-dark transition hover:text-primary"
+        title="GitHub Repository"
+        aria-label="GitHub Repository"
+      >
+        <FaGithub />
+      </a>
+
+    </div>
+  </nav>
+</header>
+

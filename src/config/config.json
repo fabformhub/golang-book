@@ -1,0 +1,40 @@
+{
+  "site": {
+    "title": "Fabform.io | Modern Form Backend",
+    "base_url": "https://fabform.io",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.png",
+    "logo_width": "200",
+    "logo_height": "34",
+    "logo_text": "Fabform.io"
+  },
+
+  "settings": {
+    "pagination": 5
+  },
+
+  "metadata": {
+    "meta_author": "Fabform.io",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Fabform.io — a modern, developer‑friendly form backend for static sites and Jamstack projects."
+  },
+
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+
+  "params": {
+    "contact_form_action": "https://fabform.io/f/YOUR_ENDPOINT_HERE",
+    "copyright": "© 2026 Fabform.io"
+  },
+
+  "contactinfo": {
+    "address": "Manchester, United Kingdom",
+    "email": "support@fabform.io",
+    "phone": "+44 0000 000000"
+  }
+}
+

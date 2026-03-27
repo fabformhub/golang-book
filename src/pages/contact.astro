@@ -1,0 +1,146 @@
+---
+import config from "@/config/config.json";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import { FaAddressCard, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+
+const entry = (await getEntry("contact", "-index")) as CollectionEntry<"contact">;
+const { address, email, phone } = config.contactinfo;
+const { title, description, meta_title, image } = entry.data;
+
+/* 
+  ────────────────────────────────────────────────────────────────
+  FABFORM.IO — 
+
+  Fabform.io is a simple, developer‑friendly form backend.
+  You don’t need servers, APIs, or JavaScript to receive form submissions.
+  Just point your <form action="..."> to your Fabform endpoint.
+
+  HOW TO USE:
+  1. Go to https://fabform.io
+  2. Create a new form → it gives you a unique endpoint like:
+       https://fabform.io/f/abcd1234
+  3. Paste that URL into the form action below.
+  4. Every submission will appear in your Fabform dashboard.
+  5. You can enable email notifications, spam protection, webhooks, etc.
+
+  IMPORTANT:
+  - Every input MUST have a "name" attribute or Fabform cannot capture it.
+  - The form method must be POST.
+  - No JavaScript is required.
+
+  The small “Powered by Fabform.io” link at the bottom is optional.
+  ────────────────────────────────────────────────────────────────
+*/
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <section class="section">
+    <div class="container">
+      <h1 set:html={markdownify(title)} class="h2 page-heading" />
+
+      <div class="row md:gx-5 gy-5">
+        <div class="sm:col-5 md:col-4">
+          <p class="mb-8 text-2xl font-bold text-text-dark">Contact Info</p>
+
+          <ul class="flex flex-col space-y-8">
+            <li>
+              <div class="flex text-text-dark items-center text-xl">
+                <FaAddressCard className="mr-3 text-primary" />
+                <p class="font-semibold">Address</p>
+              </div>
+              <p set:html={markdownify(address)} class="mt-2 leading-5 pl-8" />
+            </li>
+
+            <li>
+              <div class="flex text-text-dark items-center text-xl">
+                <FaEnvelope className="mr-3 text-primary" />
+                <p class="font-semibold">Email</p>
+              </div>
+              <p set:html={markdownify(email)} class="mt-2 leading-5 pl-8" />
+            </li>
+
+            <li>
+              <div class="flex text-text-dark items-center text-xl">
+                <FaPhoneAlt className="mr-3 text-primary" />
+                <p class="font-semibold">Phone</p>
+              </div>
+              <p set:html={markdownify(phone)} class="mt-2 leading-5 pl-8" />
+            </li>
+          </ul>
+        </div>
+
+        <div class="sm:col-7 md:col-8">
+
+          <!-- 
+            Replace YOUR_ENDPOINT_HERE with your real Fabform endpoint.
+            Example:
+              action="https://fabform.io/f/abcd1234"
+          -->
+          <form
+            class="contact-form row gy-2 justify-center"
+            method="POST"
+            action="https://fabform.io/f/YOUR_ENDPOINT_HERE"
+          >
+            <div class="lg:col-6">
+              <label class="mb-2 block" for="name">
+                Name <span class="text-red-600">*</span>
+              </label>
+              <input class="form-input w-full" name="name" type="text" required />
+            </div>
+
+            <div class="lg:col-6">
+              <label class="mb-2 block" for="email">
+                Email <span class="text-red-600">*</span>
+              </label>
+              <input class="form-input w-full" name="email" type="email" required />
+            </div>
+
+            <div class="col-12">
+              <label class="mb-2 block" for="subject">Subject</label>
+              <input class="form-input w-full" name="subject" type="text" />
+            </div>
+
+            <div class="col-12">
+              <label class="mb-2 block" for="message">
+                Message <span class="text-red-600">*</span>
+              </label>
+              <textarea
+                class="form-textarea w-full"
+                name="message"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+
+            <div class="col-12">
+              <button class="btn btn-primary mt-2">Submit Now</button>
+            </div>
+          </form>
+
+          <!-- Optional small credit link -->
+          <p class="mt-4 text-sm opacity-70">
+            Powered by
+            <a
+              href="https://fabform.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline"
+            >
+              Fabform.io
+            </a>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
