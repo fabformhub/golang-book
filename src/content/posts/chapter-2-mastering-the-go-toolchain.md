@@ -1,4 +1,3 @@
-```md
 ---
 title: "Chapter 2 — Mastering the Go Toolchain"
 meta_title: "Chapter 2 — Go Toolchain"
